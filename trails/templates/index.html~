@@ -1,0 +1,27 @@
+
+
+<head>
+<title>Trails/Routs</title>
+<style>
+    .main {border: 1px solid black;
+    border-collapse: collapse;}
+</style>
+</head>
+{% include "menu.html" %}
+
+<br>
+
+{% if report_list %}
+    <table class="main">
+    {% for report in report_list %}
+        <tr>
+            <td class="main"><b>{{ report.title }} </b><br>by: {{ report.writer }}</td>
+<td class="main">{{ report.text|truncatewords:50 }} <a href="/reports/{{ report.id }}/">full report</a></td>
+            <td class="main" width="130px" align="center">{{ report.date }}</td>
+        </tr>
+    {% endfor %}
+    
+{% else %}
+    <p>No reports are available.</p>
+{% endif %}
+

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block nav-trails %}<a href="/trails/"><strong>Trails/Routes</strong></a>{% endblock %}
+
+{% block content %}
+<head>
+<title>Your Trail was successfully modified</title>
+</head>
+
+<br>
+<P>Congratulations, your trail {{ title }} was successfully modified.</p>
+
+<a href="/trails/{{ id }}/">back</a> to trail
+
+
+{% endblock %}
+
+

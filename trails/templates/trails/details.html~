@@ -1,0 +1,70 @@
+ {% extends "base.html" %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}</li>
+{% block nav-trails %}<a href="/trails/"><strong>Trails/Routes</strong></a>{% endblock %}</li>
+
+{% block content %}
+<head>
+ <title>{{ trail.title }}</title>
+ </head>
+<body onunload="">
+ <br>
+
+ <b><u>{{ trail.title }}</u></b>, {{ trail.trip_area }} {% if user.is_authenticated and trail.uname == user.username %}<a href="../modify/{{ trail.id }}">modify</a> {% endif %}
+ <br>
+ by: {{ trail.writer }}
+ 
+ <p><u>Directions</u></p>
+ <p>{{ trail.directions|linebreaks }}</p>
+
+ <p><u>Details</u></p>
+ <p>{{ trail.details|linebreaks }}</p>
+
+ <br><b>{% if trail.time %}
+ Time: {{ trail.time }}
+ <br>{% endif %}
+ {% if trail.activity %}
+ Activity: {{ trail.activity }}
+ <br>{% endif %}
+ {% if trail.season %}
+ Season: {{ trail.season }} 
+ <br>{% endif %}
+ {% if trail.elevation_gain %}
+ Elevation Gain: {{ trail.elevation_gain }} 
+ <br>{% endif %}
+ {% if trail.distance_coverred %}
+ Distance Coverred: {{ trail.distance_coverred }}</b>
+ {% endif %}
+
+ <p>Likes: {{ trail.likes }} {% if not likbool %}<form method="get" action="like/">
+    <button type="submit">Like</button>
+</form>{% endif %}</p>
+ <p>Dislikes: {{ trail.dislikes }} {% if not likbool %}<form method="get" action="dislike/">
+    <button type="submit">Dislike</button>
+</form></p>{% endif %}
+{% if trail.image %}
+<p><img src="{{trail.image.url}}" width="600"/></p>
+{% endif %}    
+    <p><a href='../'>back to trails/routes</a></p>
+
+ {% if comments %}
+ <p><u>Comments</p></u>
+ <ul>
+ {% for com in comments %}
+     <li>{{ com }}</li>
+ {% endfor %}
+ </ul>
+ {% endif %}
+
+{% if not combool %}
+<form action="/trails/{{ trail.id }}/" method="post">{% csrf_token %}
+<ul>
+{{form.as_p}}
+</ul>
+
+<input type="submit" name="submit" value="Add Comment">
+</form>
+{% endif %}
+
+{% endblock %}
+

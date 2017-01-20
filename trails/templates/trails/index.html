@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block nav-trails %}<a href="/trails/"><strong>Trails/Routes</strong></a>{% endblock %}
+
+{% block content %}
+
+<head>
+<title>Trails/Routes</title>
+
+<link rel="stylesheet" type="text/css" href="{% static "homepage/css/old.css" %}" />
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %}" />
+  <script src="{% static "bootstrap/jquery.min.js" %}"></script>
+  <script src="{% static "bootstrap/bootstrap.min.js" %}"></script>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="col-sm-6">
+
+<div class="pagination">
+    <span class="step-links">
+        {% if trails.has_previous %}
+            <a href="?page={{ trails.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ trails.number }} of {{ trails.paginator.num_pages }}.
+        </span>
+
+        {% if trails.has_next %}
+            <a href="?page={{ trails.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+<br>
+
+
+
+{% if trails %}
+
+    <table class="table" style="font-size:14">
+    <tr><td></td><td><strong><font color="gray">Return Time</font></strong></td><td><strong><font color="gray">Elevation Gain</font></strong></td><td><strong><font color="gray">Return Distance</font></strong></td></tr>
+    {% for trail in trails %}
+        <tr>
+            <td> <a href="/trails/{{ trail.id }}/">{{ trail.title }}</a></td>
+            <td>{{ trail.time }}</td>
+            <td>{{ trail.elevation_gain }}</td>
+            <td>{{ trail.distance_coverred }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No trails/routes are available.</p>
+{% endif %}
+
+</div>
+<div class="col-sm-6">
+<a href="/trails/3/"><img src="{% static "reports/trail1bt.jpg" %}" width=400>
+<p>Black Tusk</a></p><br>
+<a href="/reports/3/"><img src="{% static "reports/trail2md.jpg" %}" width=400>
+<p>Metal Dome</a></p>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

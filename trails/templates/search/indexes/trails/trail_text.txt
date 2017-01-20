@@ -1,0 +1,5 @@
+{{ object.title }}
+{{ object.writer }}
+{{ object.details }}
+{{ object.directions }}
+

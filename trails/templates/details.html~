@@ -1,0 +1,22 @@
+ <b><u>{{ trail.title }}</u></b> {{ trail.trip_area }}
+ <br>
+ by: {{ trail.writer }}
+ 
+ <p><u>Directions</u></p>
+ <p>{{ trail.directions|linebreaks }}</p>
+
+ <p><u>Details</u></p>
+ <p>{{ trail.details|linebreaks }}</p>
+
+ <br><b>
+ Time: {{ trail.time }}
+ <br>
+ Season: {{ trail.season }} 
+ <br>
+ Elevation Gain: {{ trail.elevation_gain }} 
+ <br>
+ Distance Coverred: {{ trail.distance_coverred }}</b>
+    
+    <p><a href='../'>back to trails/routes</a></p>
+
+

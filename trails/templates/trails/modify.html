@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block nav-trails %}<a href="/trails/"><strong>Trails/Routes</strong></a>{% endblock %}
+
+{% block content %}
+<head>
+<title>Modify {{ form.title.value }}</title>
+</head>
+
+<br>
+
+<form class="form-inline"  action="/trails/modify/{{ id }}/" method="post"  enctype="multipart/form-data">{% csrf_token %}
+{{ form.non_field_errors }}
+<div class="form-group">
+<label for="{{ form.title.id_for_label }}">Title:</label> {{ form.title|attr:"class:form-control" }} {{ form.title.errors }}
+</div>
+
+<br><br>
+<div class="form-group fieldWrapper">
+{{ form.directions|attr:"class:form-control" }}<br>
+<label for="id_directions">Directions</label>{{ form.directions.errors }}
+
+<br><br>
+<div class="form-group fieldWrapper">
+{{ form.details|attr:"class:form-control" }}<br><label for="id_details">Route Description</label> {{ form.details.errors }}
+</div>
+<br><br>
+
+<div class="form-group fieldWrapper">
+<label for="id_time">Return Time:</label> {{ form.time|attr:"class:form-control"}} {{ form.time.errors }}
+</div>
+
+&nbsp&nbsp&nbsp&nbsp&nbsp
+
+<div class="form-group fieldWrapper">
+<label for="id_elevation_gain">Elevation Gain:</label> {{ form.elevation_gain|attr:"class:form-control"}}{{ form.elevation_gain.errors }}
+</div>
+
+<br><br>
+
+<div class="form-group fieldWrapper">
+<label for="id_distance_coverred">Distance Coverred:</label> {{form.distance_coverred|attr:"class:form-control"}}{{ form.distance_coverred.errors }}
+</div>
+
+<br><br>
+<div class="form-group fieldWrapper">
+<label for="id_activity">Activity:</label> {{ form.activity|attr:"class:form-control"|attr:"placeholder:OPTIONAL" }}
+</div>
+
+&nbsp&nbsp&nbsp&nbsp&nbsp
+<div class="form-group fieldWrapper">
+<label for="id_season">Season:</label> {{ form.season|attr:"class:form-control"|attr:"placeholder:OPTIONAL" }}
+</div>
+
+<br><br>
+
+<div class="form-group fieldWrapper">
+<label for="id_trip_area">Trip Area:</label> {{ form.trip_area|attr:"class:form-control"|attr:"placeholder:OPTIONAL" }}
+</div>
+
+<br><br>
+<div class="form-group fieldWrapper">
+<label for="id_image">Revelant Image:</label> {{ form.image|attr:"class:form-control" }} {{form.image.errors }}
+</div>
+
+<br><br><br><input id="id_writer" maxlength="200" name="writer" type="hidden" value="{{user.username}}"><input id="id_likes" name="likes" type="hidden" value="0"><input id="id_dislikes" name="dislikes" type="hidden" value="0"><input id="id_uname" maxlength="20" name="uname" type="hidden" value="{{user.username}}">
+
+<input class="form-control" type="submit" name="submit" value="Modify Trail">
+</form><br><br>
+<form method="get" action="/trails/{{ id }}/">
+    <button class="btn btn-default"  type="submit">Cancel</button>
+</form>
+
+{% endblock %}
+
+

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+<title>Trails/Routes</title>
+<style>
+    .main {border: 1px solid black;
+    border-collapse: collapse;}
+</style>
+</head>
+
+
+<br>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if trails.has_previous %}
+            <a href="?page={{ trails.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ trails.number }} of {{ trails.paginator.num_pages }}.
+        </span>
+
+        {% if trails.has_next %}
+            <a href="?page={{ trails.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+<br>
+
+{% if trails %}
+    <table class="main">
+    {% for trail in trails %}
+        <tr>
+            <td class="main"><b>{{ trail.title }} </b><br>by: {{ trail.writer }}</td>
+<td class="main">{{ trail.details|truncatewords:50 }} <a href="/trails/{{ trail.id }}/">more</a></td>
+            
+        </tr>
+    {% endfor %}
+    
+{% else %}
+    <p>No trails/routes are available.</p>
+{% endif %}
+
+{% endblock %}

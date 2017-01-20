@@ -1,0 +1,62 @@
+from django import forms
+from .models import Trail
+from .models import Comment
+
+import StringIO
+from PIL import Image
+
+class TrailForm(forms.ModelForm):
+
+    class Meta:
+        model = Trail
+        fields = [ 'writer','title', 'directions','details', 'time','activity','season','trip_area', 'elevation_gain','distance_coverred','likes','dislikes','uname','image']
+        widgets = {
+            'likes': forms.HiddenInput, 'dislikes': forms.HiddenInput, 'uname':forms.HiddenInput, 'writer':forms.HiddenInput, 'directions': forms.Textarea(attrs={'cols': 70, 'rows': 10}), 'details': forms.Textarea(attrs={'cols': 70, 'rows': 10}),
+        }
+        help_texts = {
+            
+            'activity':('OPTIONAL'),
+            'season':('OPTIONAL'),
+            'trip_area':('OPTIONAL'),
+            
+            
+            'image':('OPTIONAL'),
+        }
+    
+    def clean_image(self):
+
+        if self.cleaned_data.get('image'):
+        
+            image_field = self.cleaned_data.get('image')
+            image_file = StringIO.StringIO(image_field.read())
+            image = Image.open(image_file)
+            w, h = image.size
+        
+            if h>w:
+                raise forms.ValidationError("Landscape photos only") 
+            elif w>2500:
+                raise forms.ValidationError("Your photo is too wide, "+str(w)+" pixels is too wide,please reduce size before uploading")
+            elif w<600 or h<400:
+                raise forms.ValidationError("Your photo is too small, recommended upload size is 640 x 480 pixels")
+            image = image.resize((640, 480), Image.ANTIALIAS) #640 480
+
+            image_file = StringIO.StringIO()
+            image.save(image_file, 'JPEG', quality=90)
+
+            image_field.file = image_file
+
+            return image_field    
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = [ 'content','trail']
+        widgets = {
+            'trail': forms.HiddenInput,
+        }#name comment not content
+        labels = {
+            'content':('Comment'),
+        }
+    
+

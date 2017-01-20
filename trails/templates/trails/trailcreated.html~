@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+<title>Your Trail was successfully added</title>
+</head>
+
+<br>
+<P>Congratulations, your trail {{ title }} was successfully added to the database.</p>
+
+click <a href="/trails/">here</a> to return to return to the trails page 
+
+
+{% endblock %}
+
+

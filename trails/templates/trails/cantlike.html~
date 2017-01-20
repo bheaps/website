@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>You are are only permitted to like/dislike and comment once!</p>
+
+<a href="/trails/{{ trail_id }}/">back to trail</a>
+
+
+{% endblock %}
