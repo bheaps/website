@@ -1,0 +1,24 @@
+from __future__ import unicode_literals
+from time import time
+from django.db import models
+
+class Imageotd(models.Model):
+
+    def __str__(self):
+        return self.title
+
+    title = models.CharField(max_length=70)
+    image = models.FileField(upload_to='imageotd/%Y/%m/%d')
+    date = models.DateField()
+    uname = models.CharField(max_length=30)
+    desc = models.TextField(blank=True)
+    likes = models.IntegerField(default=0,blank=True)
+    dislikes = models.IntegerField(default=0,blank=True)
+    likdisdif = models.IntegerField(default=0,blank=True)
+
+class Comment(models.Model):
+    def __str__(self):
+        return self.content
+
+    content=models.TextField()
+    imageotd=models.ForeignKey(Imageotd)

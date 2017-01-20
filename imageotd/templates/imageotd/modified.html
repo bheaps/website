@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block nav-picture %}<a href="/imageotd/"><strong>Picture of the Day</strong></a>{% endblock %}
+
+{% block content %}
+<head>
+<title>Your Picture of the day was successfully modified</title>
+</head>
+
+<br>
+<P>Congratulations, your Picture of the Day, {{ title }} was successfully modified.</p>
+
+<a href="/imageotd/{{ id }}/">back</a>
+
+
+{% endblock %}
+
+

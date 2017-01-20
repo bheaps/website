@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<p>Thank you for your like/dislike!</p>
+
+<a href="/imageotd/{{ pic_id }}/">back</a>
+
+
+{% endblock %}

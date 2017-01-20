@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block nav-picture %}<a href="/imageotd/"><strong>Picture of the Day</strong></a>{% endblock %}
+
+{% block content %}
+
+<head>
+<title>Picture of the day</title>
+
+</head>
+<body onunload="">
+<br>
+<p><b>{{ image.title }} </b>{% if user.is_authenticated and image.uname == user.username %}<a href="/imageotd/modify/{{ image.id }}">modify</a> {% endif %}
+
+{% if image.image %}
+<p><img src="{{image.image.url}}" width="600"/></p>
+{% else %}
+image data not found
+{% endif %}
+
+<p>uploaded by: {{ image.uname }} on {{ image.date }} </p>
+
+<p>{{ image.desc|linebreaks }}</p>
+
+ <p>Likes: {{ image.likes }} {% if not likbool %} <form method="get" action="like/">
+    <button type="submit">Like</button>
+</form>{% endif %} </p>
+ <p>Dislikes: {{ image.dislikes }} {% if not likbool %} <form method="get" action="dislike/">
+    <button type="submit">Dislike</button>
+</form></p>{% endif %}
+
+ {% if comments %}
+ <p><u>Comments</p></u>
+ <ul>
+ {% for com in comments %}
+     <li>{{ com }}</li>
+ {% endfor %}
+ </ul>
+ {% endif %}
+
+{% if not combool %}
+<form action="/imageotd/{{ image.id }}/" method="post">{% csrf_token %}
+<ul>
+{{form.as_p}}
+</ul>
+
+<input type="submit" name="submit" value="Add Comment">
+</form>
+{% endif %}
+
+<p><a href='/imageotd/'>back</a></p>
+
+</body>
+{% endblock %}
+
+
+

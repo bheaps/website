@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+<title>Your Picture of the day was successfully modified</title>
+</head>
+
+<br>
+<P>Congratulations, your Picture of the Day, {{ title }} was successfully modified.</p>
+
+<a href="/imageotd/{{ id }}/">back</a>
+
+
+{% endblock %}
+
+

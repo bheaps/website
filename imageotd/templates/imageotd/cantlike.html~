@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>You are are only permitted to like/dislike and comment once!</p>
+
+<a href="/imageotd/{{ pic_id }}/">back</a>
+
+
+{% endblock %}

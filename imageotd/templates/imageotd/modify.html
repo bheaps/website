@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block nav-picture %}<a href="/imageotd/"><strong>Picture of the Day</strong></a>{% endblock %}
+
+{% block content %}
+<head>
+<title>Modify {{ form.title.value }}</title>
+</head>
+
+<br>
+
+<form class="form-inline" action="/imageotd/modify/{{ id }}/" method="post" enctype="multipart/form-data">{% csrf_token %}
+{{ form.non_field_errors }}
+<div class="form-group">
+<label for="{{ form.title.id_for_label }}">Title:</label> {{ form.title|attr:"class:form-control" }} {{ form.title.errors }}
+</div>
+
+<br><br>
+<div class="form-group fieldWrapper">
+<label for="id_image">Image:</label> {{ form.image|attr:"class:form-control" }} {{form.image.errors }}
+</div>
+
+<br><br>
+<div class="form-group">
+<label for="{{ form.date.id_for_label }}">Date:</label> {{ form.date|attr:"class:form-control" }} {{ form.date.errors }}
+</div>
+<br><br>
+<div class="form-group fieldWrapper">
+{{ form.desc|attr:"class:form-control" }}<br>
+<label for="id_desc">Photo Description</label>{{ form.desc.errors }}
+</div>
+<br><br><br><input id="id_likdisdif" maxlength="200" name="likdisdif" type="hidden" value="0"><input id="id_likes" name="likes" type="hidden" value="0"><input id="id_dislikes" name="dislikes" type="hidden" value="0"><input id="id_uname" maxlength="20" name="uname" type="hidden" value="{{user.username}}">
+
+<input class="form-control" type="submit" name="submit" value="Modify Picture">
+</form>
+
+<form method="get" action="/imageotd/{{ id }}/">
+    <button class="btn btn-default" type="submit">Cancel</button>
+</form>
+
+
+{% endblock %}
+
+

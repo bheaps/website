@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block nav-picture %}<a href="/imageotd/"><strong>Picture of the Day</strong></a>{% endblock %}
+
+{% block content %}
+
+<head>
+<title>Image of the Day</title>
+<style>
+
+</style>
+</head>
+
+
+<p><a href="/imageotd/create/">upload</a> a picture</p>
+
+<p><a href="/imageotd/likeview/">sort by like/dislike</a></p><br>
+
+<p><a href="/imageotd/">sort by most recent upload</a></p><br>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if images.has_previous %}
+            <a href="?page={{ images.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ images.number }} of {{ images.paginator.num_pages }}.
+        </span>
+
+        {% if images.has_next %}
+            <a href="?page={{ images.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+<br><br>
+
+
+{% if images %}
+    
+    {% for image in images %}
+        {% if image.image %}
+<p><a href="/imageotd/{{ image.id}}"><img src="{{image.image.url}}" width="600"/></a></p>
+<p><b>{{ image.title }} </b><br>uploaded by: {{ image.uname }} on {{ image.date }}  |  {{ image.likes }} likes - {{ image.dislikes }} dislikes
+        {% else %}
+             image data not found
+        {% endif %}
+        <br><br>
+        
+    {% endfor %}
+
+    
+{% else %}
+    <p>No Pictures of the day are available.</p>
+{% endif %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if images.has_previous %}
+            <a href="?page={{ images.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ images.number }} of {{ images.paginator.num_pages }}.
+        </span>
+
+        {% if images.has_next %}
+            <a href="?page={{ images.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
