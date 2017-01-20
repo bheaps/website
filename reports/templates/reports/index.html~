@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+<head>
+<title>Trip Reports</title>
+
+<link rel="stylesheet" type="text/css" href="{% static "homepage/css/old.css" %}" />
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ STATIC_URL }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="{{ STATIC_URL }}/bootstrap/jquery.min.js"></script>
+  <script src="{{ STATIC_URL }}/bootstrap/bootstrap.min.js"></script>
+</head>
+{% block nav-reports %}<strong><a href="/reports/">Trip Reports</a></strong>{% endblock %}
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block content %}
+<div class="row">
+
+<div class="col-sm-6">
+
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if reports.has_previous %}
+            <a href="?page={{ reports.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ reports.number }} of {{ reports.paginator.num_pages }}.
+        </span>
+
+        {% if reports.has_next %}
+            <a href="?page={{ reports.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+<br>
+
+{% if reports %}
+    
+    {% for report in reports %}
+        <a href="/reports/{{ report.id }}/">{{ report.title }}</a><i> by: {{ report.writer }}    {{ report.date }}</i>
+<p>{{ report.text|safe|striptags|truncatewords:35 }} </p><br>
+            
+        
+    {% endfor %}
+    
+{% else %}
+    <p>No reports are available.</p>
+{% endif %}
+  
+</div>
+<div class="col-sm-6">
+<a href="/reports/1/"><img src="{% static "reports/img1alc.jpg" %}" width=375>
+<p>Alcoholic Traverse</a></p><br>
+<a href="/reports/3/"><img src="{% static "reports/img2sum.JPG" %}" width=375 height=275>
+<p>Sumas Mountain</a></p>
+</div>
+
+
+
+{% endblock %}

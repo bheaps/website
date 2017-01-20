@@ -1,0 +1,25 @@
+from django.contrib import admin
+from django.forms import TextInput, Textarea
+from django.db import models
+
+from .models import Report
+from .models import Participant
+from .models import Comment
+
+class showidreports(admin.ModelAdmin):
+    list_display = ('title','pk')
+    list_filter = ('title',)
+    
+
+class showidparticipant(admin.ModelAdmin):
+    list_display= ('name','report')
+    list_filter = ('name',)
+
+class showidcomment(admin.ModelAdmin):
+    list_display = ('content','report')
+    list_filter = ('content',)
+
+admin.site.register(Report,showidreports)
+admin.site.register(Participant,showidparticipant)
+admin.site.register(Comment,showidcomment)
+

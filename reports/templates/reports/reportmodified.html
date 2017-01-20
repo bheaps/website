@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block nav-reports %}<a href="/reports/"><strong>Trip Reports</strong></a>{% endblock %}
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+
+{% block content %}
+<head>
+<title>Your Report was successfully modified</title>
+</head>
+
+<br>
+<P>Congratulations, your report {{ title }} was successfully modified.</p>
+
+<a href="/reports/{{ id }}/">back</a> to report
+
+
+{% endblock %}
+
+

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>Thank you for commenting!</p>
+
+<a href="/reports/{{ report_id }}/">back to report</a>
+
+
+{% endblock %}

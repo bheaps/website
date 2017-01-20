@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+<title>Your Report was successfully modified</title>
+</head>
+
+<br>
+<P>Congratulations, your report {{ title }} was successfully modified.</p>
+
+<a href="/reports/{{ id }}/">back</a> to report
+
+
+{% endblock %}
+
+

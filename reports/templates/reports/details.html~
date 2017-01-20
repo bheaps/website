@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block nav-reports %}<a href="/reports/"><strong>Trip Reports</strong></a>{% endblock %}
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block content %}
+
+<head>
+<title>{{ report.title }}</title>
+
+</head>
+<body onunload="">
+<br>
+
+ <b><u>{{ report.title }}</u></b>, {{ report.trip_area }} {% if user.is_authenticated and report.uname == user.username %}<a href="../modify/{{ report.id }}">modify</a> {% endif %}
+ <br>
+ report by: {{ report.writer }}<br> 
+ {{ report.date }}
+
+
+ {{ report.text|safe|linebreaks }}
+
+ <br><b>{% if report.trip_area %}
+ Trip Area: {{ report.trip_area }} 
+ <br>{% endif %}
+ <br><b>{% if report.elevation_gain %}
+ Elevation Gain: {{ report.elevation_gain }} 
+ <br>{% endif %}
+ {% if report.distance_coverred %}
+ Distance Coverred: {{ report.distance_coverred }}{% endif %}
+
+ {% if participants %}<br>
+     Participants: 
+     {% for participant in participants %} 
+         {{ participant }}     
+         {% if not forloop.last %}
+             , 
+         {% endif %}
+     {% endfor %}
+ {% endif %}
+ </b>{% if user.is_authenticated and report.uname == user.username %}<a href="../modifyparticipants/{{ report.id }}">modify participants</a>{% endif %}
+
+{% if report.image %}
+<p><img src="{{report.image.url}}" width="600"/></p>
+{% endif %}
+
+
+    
+ <p>Likes: {{ report.likes }} {% if not likbool %} <form method="get" action="like/">
+    <button type="submit">Like</button>
+</form>{% endif %} </p>
+ <p>Dislikes: {{ report.dislikes }} {% if not likbool %} <form method="get" action="dislike/">
+    <button type="submit">Dislike</button>
+</form></p>{% endif %}
+
+
+ {% if comments %}
+ <p><u>Comments</p></u>
+ <ul>
+ {% for com in comments %}
+     <li>{{ com }}</li>
+ {% endfor %}
+ </ul>
+ {% endif %}
+
+{% if not combool %}
+<form action="/reports/{{ report.id }}/" method="post">{% csrf_token %}
+<ul>
+{{form.as_p}}
+</ul>
+
+<input type="submit" name="submit" value="Add Comment">
+</form>
+{% endif %}
+
+<p><a href='/reports/'>back to reports</a></p>
+
+
+{% endblock %}
+
+</body>
+
+

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>You are not authorized to modify this report!</p>
+
+<a href="/reports/{{ report_id }}/">back to report</a>
+
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% if report_list %}
+    <ul>
+    {% for report in report_list %}
+        <li>{{ report.text }}<a href="/reports/{{ report.id }}/">here</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No reports are available.</p>
+{% endif %}

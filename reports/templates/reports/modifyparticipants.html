@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block nav-reports %}<a href="/reports/"><strong>Trip Reports</strong></a>{% endblock %}
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+{% block content %}
+<head>
+<title>Modify Participants</title>
+</head>
+
+<br>
+
+
+<table>
+<tr>
+<td>
+<form action="/reports/modifyparticipants/{{ id }}/" method="post">{% csrf_token %}
+
+<ul>
+{{form.as_p}}
+</ul> 
+
+<input type="submit" name="submit" value="Add Participant">
+</form>
+
+</td>
+<td>
+<ul>
+{% for parti in participants %}
+<li>{{ parti }} <a href="/reports/deleteparticipantmodify/{{parti.id}}/{{id}}/">delete</a></li>
+{% endfor %}
+</ul>
+</td>
+</tr>
+</table>
+
+<form method="get" action="/reports/{{id}}">
+    <button type="submit">Back to report</button>
+</form>
+
+{% endblock %}
+
+

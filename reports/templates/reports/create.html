@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load i18n widget_tweaks %}
+<head>
+
+</head>
+
+
+{% block nav-postreport %}<a href="/reports/create/"><strong>Post Trip Report</strong></a>{% endblock %}
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+
+{% block content %}
+<head>
+<title>Post a Trip Report</title>
+</head>
+
+<br>
+
+<form class="form-inline" action="/reports/create/" method="post" enctype="multipart/form-data">{% csrf_token %} 
+
+{{ form.media }}
+
+<div class="form-group">
+<label for="id_title">Title: </label>
+{{ form.title|attr:"class:form-control"}} {{ form.title.errors }}
+</div>
+<br><br>
+
+{{ form.text.errors }}
+{{ form.text }}
+
+<br><br>
+
+
+  <div class="form-group">
+    <label for="elevation_gain">Elevation Gain:</label>
+    {{ form.elevation_gain|attr:"class:form-control"|attr: "placeholder="OPTIONAL"" }}
+  </div>
+&nbsp&nbsp&nbsp&nbsp&nbsp
+  <div class="form-group">
+    <label for="distance_coverred">Distance Coverred:</label>
+    {{ form.distance_coverred|attr:"class:form-control"|attr: "placeholder="OPTIONAL"" }}
+  </div>
+
+<br><br>
+
+  <div class="form-group">
+    <label for="trip_area">Trip Area:</label>
+    {{ form.trip_area|attr:"class:form-control"|attr: "placeholder="OPTIONAL"" }}
+  </div>
+
+ <br><br>
+<input id="id_writer" maxlength="200" name="writer" type="hidden" value="{{user.username}}"><input id="id_likes" name="likes" type="hidden" value="0"><input id="id_dislikes" name="dislikes" type="hidden" value="0"><input id="id_uname" maxlength="20" name="uname" type="hidden" value="{{user.username}}">
+<input type="submit" name="submit" value="Add Report" class="btn btn-default">
+</form>
+<form method="get" action="../">
+    <button type="submit" class="btn btn-default">Cancel</button>
+</form>
+
+{% endblock %}
+
+

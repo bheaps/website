@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+<title>Trip Reports</title>
+<style>
+    .main {border: 1px solid black;
+    border-collapse: collapse;}
+    .query {background-color: #FFFF00;}
+</style>
+</head>
+
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if reports.has_previous %}
+            <a href="?page={{ reports.previous_page_number }}&search={{ search }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ reports.number }} of {{ reports.paginator.num_pages }}.
+        </span>
+
+        {% if reports.has_next %}
+            <a href="?page={{ reports.next_page_number }}&search={{ search }}">next</a>
+        {% endif %}
+    </span>
+</div>
+<br>
+
+{% if reports %}
+    <table class="main">
+    {% for report in reports %}
+        <tr>
+            <td class="main"><b>{{ report.object.title }} </b><br>by: {{ report.object.writer }}</td>
+<td class="main">{{ report.object.text|truncatewords:50 }} <a href="{{ report.object.get_absolute_url }}/">full report</a></td>
+            <td class="main" width="130px" align="center">{{ report.object.date }}</td>
+        </tr>
+    {% endfor %}
+    
+{% else %}
+    <p>No reports are available.</p>
+{% endif %}
+
+{% endblock %}

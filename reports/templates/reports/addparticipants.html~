@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+<title>Add a Participant</title>
+</head>
+
+<br>
+
+
+<table>
+<tr>
+<td>
+<form action="/reports/addparticipants/" method="post">{% csrf_token %}
+
+<ul>
+{{form.as_p}}
+</ul>
+
+<input type="submit" name="submit" value="Add Participant">
+</form>
+
+</td>
+<td>
+<ul>
+{% for parti in participants %}
+<li>{{ parti }} <a href="/reports/deleteparticipant/{{parti.id}}/">delete</a></li>
+{% endfor %}
+</ul>
+</td>
+</tr>
+</table>
+
+<form method="get" action="/reports/reportadded/">
+    <button type="submit">Done Adding Participants / skip</button>
+</form>
+
+{% endblock %}
+
+
