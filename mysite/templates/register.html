@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block nav-home %}<a href="/">Home</a>{% endblock %}
+
+
+<head>
+<title>Exploring Ice Axe</title>
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+{% block content %}
+ 
+
+  <form class ="form-horizontal" action="/accounts/register/" method="post">{% csrf_token %}
+  {{ form.non_field_errors }}
+
+<div class="form-group">
+<label class="control-label col-sm-2" for="{{ form.username.id_for_label }}">Username:</label> 
+<div class="col-sm-4">
+{{ form.username|attr:"class:form-control" }} {{ form.username.errors }}
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label col-sm-2" for="{{ form.email.id_for_label }}">Email:</label> 
+<div class="col-sm-4">
+{{ form.email|attr:"class:form-control" }} {{ form.email.errors }}
+</div>
+</div>
+
+  <div class="form-group">
+<label class="control-label col-sm-2" for="{{ form.first_name.id_for_label }}">First Name:</label> 
+<div class="col-sm-4">
+{{ form.first_name|attr:"class:form-control" }} {{ form.first_name.errors }}
+</div>
+</div>
+
+  <div class="form-group">
+<label class="control-label col-sm-2" for="{{ form.last_name.id_for_label }}">Last Name:</label> 
+<div class="col-sm-4">
+{{ form.last_name|attr:"class:form-control" }} {{ form.last_name.errors }}
+</div>
+</div>
+
+  <div class="form-group">
+<label class="control-label col-sm-2" for="{{ form.password1.id_for_label }}">Password:</label> 
+<div class="col-sm-4">
+{{ form.password1|attr:"class:form-control" }} {{ form.password1.errors }}
+</div>
+</div>
+
+  <div class="form-group">
+<label class="control-label col-sm-2" for="{{ form.password1.id_for_label }}"></label> 
+<div class="col-sm-4">
+{{ form.password2|attr:"class:form-control"|attr:"placeholder:enter password again" }} {{ form.password2.errors }}
+</div>
+</div>
+<br>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Register</button>
+      </div>
+    </div>
+  
+
+  </form>
+
+{% endblock %}
